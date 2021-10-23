@@ -3,8 +3,8 @@
         <div id="githublatestcommits">
             <h3>{$number} last commits from {$user}'s repo ({$repo})</h3>
             <div class="row">
-                <div class="column-title col-6 text-center">User's commit info</div>
-                <div class="column-title col-6 text-center">Commit message</div>
+                <div class="column-title col-6">User's commit info</div>
+                <div class="column-title col-6">Commit message</div>
 
                 {foreach from=$commits item=element}
                     <div class="commit">
