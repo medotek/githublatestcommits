@@ -1,5 +1,5 @@
 {if $commits}
-    <div class="container">
+    {if $commits.error !== "error"}
         <div id="githublatestcommits">
             <h3>{$number} last commits from {$user}'s repo ({$repo})</h3>
             <div class="row">
@@ -22,5 +22,9 @@
                 {/foreach}
             </div>
         </div>
-    </div>
+    {else}
+        <div id="githublatestcommits-error">
+            <span>No commits are found. The user and/or the repository doesn't exist or (the repository) is not public.</span>
+        </div>
+    {/if}
 {/if}

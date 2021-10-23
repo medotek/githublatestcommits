@@ -1,3 +1,16 @@
+#githublatestcommits-error {
+    background: white;
+    border-radius: 2px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#githublatestcommits-error span {
+    font-weight: bold;
+    color: #f32828;
+    text-align: center;
+}
+
 #githublatestcommits {
     display: flex;
     flex-direction: column;

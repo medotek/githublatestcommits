@@ -229,6 +229,7 @@ class githublatestcommits extends Module implements WidgetInterface
             try {
                 // client > endpoints > method/func (commits here)
                 $commits = $client->api('repo')->commits()->all($user, $repo, array('sha' => 'master'));
+                dump($commits);
             } catch (Exception $e) {
                 $commits = ['error' => 'error'];
             }
