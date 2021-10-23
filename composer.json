@@ -1,0 +1,20 @@
+{
+  "name": "thomashuynh/githublastcommits",
+  "description": "Fetch Github API and get the last commits of a repo",
+  "require": {
+    "php": ">=7.3.0",
+    "knplabs/github-api":"^3.0",
+    "symfony/http-client": "^5.3",
+    "nyholm/psr7": "^1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Module\\githublatestcommits\\": "src/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "prepend-autoloader": false
+  },
+  "type": "prestashop-module"
+}
