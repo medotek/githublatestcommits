@@ -4,11 +4,21 @@
 }
 
 #githublatestcommits .commit {
-    padding: 10px;
+    padding: 20px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .1);
     margin-bottom: 20px;
+}
+
+#githublatestcommits .column-title {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#githublatestcommits .commit:first-of-type {
+    margin-top: 20px;
+    background: white;
 }
 
 #githublatestcommits .commit .info {

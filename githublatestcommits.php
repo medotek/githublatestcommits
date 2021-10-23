@@ -42,7 +42,7 @@ class githublatestcommits extends Module implements WidgetInterface
         ) {
             Configuration::set('GIT_USER', 'KnpLabs', null);
             Configuration::set('GIT_REPO', 'php-github-api', null);
-            Configuration::set('GIT_NUMBER', '5', null);
+            Configuration::set('GIT_NUMBER', 5, null);
             return true;
         }
 
@@ -97,7 +97,7 @@ class githublatestcommits extends Module implements WidgetInterface
                     ],
                     [
                         'type' => 'text',
-                        'label' => $this->trans('Number of commits', [], 'Modules.githublatestcommits.Admin'),
+                        'label' => $this->trans('Number of commits (default value if empty : 5)', [], 'Modules.githublatestcommits.Admin'),
                         'name' => 'GITHUB_COMMITS_NUMBER',
                     ],
                 ],
@@ -143,7 +143,7 @@ class githublatestcommits extends Module implements WidgetInterface
         return [
             'GITHUB_LATEST_COMMITS_USER' => Tools::getValue('GITHUB_LATEST_COMMITS_USER', Configuration::get('GIT_USER')),
             'GITHUB_LATEST_COMMITS_REPO' => Tools::getValue('GITHUB_LATEST_COMMITS_REPO', Configuration::get('GIT_REPO')),
-            'GITHUB_COMMITS_NUMBER' => Tools::getValue('GITHUB_COMMITS_NUMBER', Configuration::get('GIT_REPO')),
+            'GITHUB_COMMITS_NUMBER' => Tools::getValue('GITHUB_COMMITS_NUMBER', Configuration::get('GIT_NUMBER')),
         ];
     }
 
@@ -171,7 +171,7 @@ class githublatestcommits extends Module implements WidgetInterface
     {
         $gitUser = $configuration['git_user'] ?? null;
         $gitRepo = $configuration['git_repo'] ?? null;
-        $numberOfCommits = Configuration::get('GIT_REPO') ?? 5;
+        $numberOfCommits = (int) Configuration::get('GIT_NUMBER') ?? 5;
 
         if ($gitUser && $gitRepo) {
             $user = $gitUser;
@@ -184,7 +184,8 @@ class githublatestcommits extends Module implements WidgetInterface
         return [
             'commits' => $this->getCommits($user, $repo, $numberOfCommits),
             'user' => $user,
-            'repo' => $repo
+            'repo' => $repo,
+            'number' => $numberOfCommits
         ];
     }
 
@@ -215,6 +216,7 @@ class githublatestcommits extends Module implements WidgetInterface
      * Get commits from configuration
      * @param $user
      * @param $repo
+     * @param $numberOfCommits
      * @return array
      */
     public function getCommits($user, $repo, $numberOfCommits): array
