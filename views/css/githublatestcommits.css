@@ -1,0 +1,24 @@
+#githublatestcommits {
+    display: flex;
+    flex-direction: column;
+}
+
+#githublatestcommits .commit {
+    padding: 10px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    margin: 20px 0;
+}
+
+
+#githublatestcommits .commit .info {
+    display: flex;
+    flex-direction: column;
+}
+
+#githublatestcommits .commit .message {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
