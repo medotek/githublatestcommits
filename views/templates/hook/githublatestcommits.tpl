@@ -1,14 +1,12 @@
 {if $commits}
-    {if 'error'|array_key_exists:$commits}
-        <div id="error">
-            <p>No commits are found, maybe the user or the repo doesn't exist or is not public</p>
-        </div>
-    {else}
-        <div class="container">
-            <div id="githublatestcommits">
-                <h3>Latest commits from {$user}'s repo ({$repo})</h3>
+    <div class="container">
+        <div id="githublatestcommits">
+            <h3>Latest commits from {$user}'s repo ({$repo})</h3>
+            <div class="row">
+                <div class="col-6 text-center">User's commit info</div>
+                <div class="col-6 text-center">Commit message</div>
                 {foreach from=$commits item=element}
-                    <div class="commit row">
+                    <div class="commit">
                         <div class="align-self-center info col-6">
                             <span><b>{$element.commit.author.name}</b></span>
                             <span>{$element.commit.author.email}</span>
@@ -21,5 +19,5 @@
                 {/foreach}
             </div>
         </div>
-    {/if}
+    </div>
 {/if}

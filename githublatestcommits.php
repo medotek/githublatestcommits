@@ -42,6 +42,7 @@ class githublatestcommits extends Module implements WidgetInterface
         ) {
             Configuration::set('GIT_USER', 'KnpLabs', null);
             Configuration::set('GIT_REPO', 'php-github-api', null);
+            Configuration::set('GIT_NUMBER', '5', null);
             return true;
         }
 
@@ -65,6 +66,7 @@ class githublatestcommits extends Module implements WidgetInterface
             // Configuration
             Configuration::deleteByName('GIT_USER');
             Configuration::deleteByName('GIT_REPO');
+            Configuration::deleteByName('GIT_NUMBER');
             return true;
         }
 
@@ -93,6 +95,11 @@ class githublatestcommits extends Module implements WidgetInterface
                         'label' => $this->trans('Github repo', [], 'Modules.githublatestcommits.Admin'),
                         'name' => 'GITHUB_LATEST_COMMITS_REPO',
                     ],
+                    [
+                        'type' => 'text',
+                        'label' => $this->trans('Number of commits', [], 'Modules.githublatestcommits.Admin'),
+                        'name' => 'GITHUB_COMMITS_NUMBER',
+                    ],
                 ],
                 'submit' => [
                     'title' => $this->getTranslator()->trans('Save', [], 'Admin.Actions'),
@@ -120,18 +127,12 @@ class githublatestcommits extends Module implements WidgetInterface
     {
         $output = '';
         if (Tools::isSubmit('submitGithubLatestCommits')) {
-            $user = Tools::getValue('GITHUB_LATEST_COMMITS_USER');
-            $repo = Tools::getValue('GITHUB_LATEST_COMMITS_REPO');
-
-//            if (empty($user)||empty($repo)) {
-//                $output .= $this->displayError($this->getTranslator()->trans('Github User or Repo field are empty.', [], 'Admin.Notifications.Error'));
-//            } else {
             Configuration::updateValue('GIT_USER', Tools::getValue('GITHUB_LATEST_COMMITS_USER'));
             Configuration::updateValue('GIT_REPO', Tools::getValue('GITHUB_LATEST_COMMITS_REPO'));
+            Configuration::updateValue('GIT_NUMBER', (int) Tools::getValue('GITHUB_COMMITS_NUMBER'));
 
             Tools::redirectAdmin(AdminController::$currentIndex . '&configure=' . $this->name . '&token=' . Tools::getAdminTokenLite('AdminModules') . '&conf=6');
         }
-//        }
 
         return $output . $this->renderForm();
     }
@@ -142,6 +143,7 @@ class githublatestcommits extends Module implements WidgetInterface
         return [
             'GITHUB_LATEST_COMMITS_USER' => Tools::getValue('GITHUB_LATEST_COMMITS_USER', Configuration::get('GIT_USER')),
             'GITHUB_LATEST_COMMITS_REPO' => Tools::getValue('GITHUB_LATEST_COMMITS_REPO', Configuration::get('GIT_REPO')),
+            'GITHUB_COMMITS_NUMBER' => Tools::getValue('GITHUB_COMMITS_NUMBER', Configuration::get('GIT_REPO')),
         ];
     }
 
@@ -169,6 +171,7 @@ class githublatestcommits extends Module implements WidgetInterface
     {
         $gitUser = $configuration['git_user'] ?? null;
         $gitRepo = $configuration['git_repo'] ?? null;
+        $numberOfCommits = Configuration::get('GIT_REPO') ?? 5;
 
         if ($gitUser && $gitRepo) {
             $user = $gitUser;
@@ -179,7 +182,7 @@ class githublatestcommits extends Module implements WidgetInterface
         }
 
         return [
-            'commits' => $this->getCommits($user, $repo, 5),
+            'commits' => $this->getCommits($user, $repo, $numberOfCommits),
             'user' => $user,
             'repo' => $repo
         ];
