@@ -19,7 +19,7 @@ class githublatestcommits extends Module implements WidgetInterface
         $this->author = 'Thomas Huynh';
         $this->version = '1.0.0';
         $this->tab = 'front_office_features';
-        $this->ps_versions_compliancy = ['min' => '1.7.7.0', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '1.7.4.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
 
         parent::__construct();
@@ -40,9 +40,9 @@ class githublatestcommits extends Module implements WidgetInterface
         if (parent::install() &&
             $this->registerHook('displayHome')
         ) {
-            Configuration::set('GIT_USER', 'KnpLabs', null);
-            Configuration::set('GIT_REPO', 'php-github-api', null);
-            Configuration::set('GIT_NUMBER', 5, null);
+            Configuration::set('GIT_USER', 'KnpLabs');
+            Configuration::set('GIT_REPO', 'php-github-api');
+            Configuration::set('GIT_NUMBER', 5);
             return true;
         }
 
@@ -229,7 +229,6 @@ class githublatestcommits extends Module implements WidgetInterface
             try {
                 // client > endpoints > method/func (commits here)
                 $commits = $client->api('repo')->commits()->all($user, $repo, array('sha' => 'master'));
-                dump($commits);
             } catch (Exception $e) {
                 $commits = ['error' => 'error'];
             }
